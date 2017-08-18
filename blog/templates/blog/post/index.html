@@ -1,0 +1,36 @@
+{% extends 'blog/base2.html' %}
+{% load blog_tags %}
+
+{% block title %}Write and Think{% endblock %}
+
+{% block content %}
+
+  <div class="post hentry category-news tag-tag tag-yes" id="post-14">
+    {% if tag %}
+      <h2>Posts tagged with "{{ tag.name }}"</h2>
+    {% endif %}
+  {% for post in posts %}
+    <div class="post_header_single">
+      <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    
+    <p class="tags">
+      标签:
+      {% for tag in post.tags.all %}
+        <a href="{% url "blog:post_list_by_tag" tag.slug %}">
+          {{ tag.name }}
+          {% if not forloop.last %}, {% endif %}
+        </a>
+      {% endfor %}
+    </p>
+    <p class="date">
+      发布于 {{ post.publish }} 作者: {{ post.author }}
+    </p>
+    </div>
+    
+    <div class = "post_body_single">
+    {{ post.body|markdown|safe|truncatewords_html:30 }}
+    </div>
+  {% endfor %}
+
+  {% include "paginator.html" with page=posts %}
+{% endblock %}

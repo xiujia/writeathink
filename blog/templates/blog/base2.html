@@ -1,0 +1,260 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Short desc." />
+    <meta name="keywords" content="dieter" />
+    <meta name="author" content="dieter" />
+    <meta name="generator" content="WordPress 2.7" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="screen, projection" />
+    <link rel="alternate" type="application/rss+xml" title="dieter RSS Feed" href="feed=rss2" />
+
+    <link rel="pingback" href="#" />
+    
+    
+ 
+    
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{%static 'js/tabs.js' %}"></script>
+
+<script type='text/javascript'>
+jQuery(document).ready(function() {
+jQuery("#dropmenu ul").css({display: "none"}); // Opera Fix
+jQuery("#dropmenu li").hover(function(){
+        jQuery(this).find('ul:first').css({visibility: "visible",display: "none"}).show(268);
+        },function(){
+        jQuery(this).find('ul:first').css({visibility: "hidden"});
+        });
+});
+</script>
+
+
+
+</head>
+
+<body>
+
+<!--*************************************** START PAGE_WRAPPER div (close in footer.php)******************
+*******************************************************************************************************-->
+<div id="page_wrapper">
+
+<!--*********************************** START header div ***********************************-->
+
+<div id="header">
+
+
+
+
+
+</div>
+<!--*********************************** CLOSE header div ***********************************-->
+<!--*************************************** START CONTAINER div (close in footer.php)******************
+*******************************************************************************************************-->
+<div id="container">
+
+
+
+<!--*************************************** START MAIN_CONTENT_LEFT div ***************************************
+*********************************************************************************************************************-->
+
+<!--*************************************** START the_ID div ***************************************-->
+<div id="main_content_left">       
+{% block content %}
+{% endblock %}
+
+
+</div>
+<!--*************************************** close main_content_left div ***************************************
+*********************************************************************************************************************-->
+
+
+
+<!--*************************************** START MAIN_CONTENT_RIGHT div ***************************************
+****************************************************************************************************************-->
+<div id="main_content_right">
+
+<!-- START top_nav_menu div -->
+<div id="top_nav_menu">
+<ul id="dropmenu">
+<li><a href="#" class="title" title="home again woohoo">首页</a></li>
+<li><a href="{% url 'blog:post_list' %}" title="Blog">Blog</a></li>
+<li><a href="#" title="dropdown">Category</a>
+
+<ul>
+<li><a href="#" title="child of dropdown">Python</a>
+
+<ul>
+<li><a href="#" title="grandchild">Django</a></li>
+</ul>
+</li>
+
+<li><a href="#" title="child 2 of dropdown">Machine Learning</a></li>
+</ul>
+</li>
+
+<li><a href="#" title="Testing elements">Testing elements</a></li>
+</ul>
+</div>
+<!-- CLOSE top_nav_menu div -->
+
+
+
+<!-- START USUAL div -->
+<div class="usual">
+
+
+       
+        <ul class="idTabs">
+          <li><a class="selected" href="#RECENT">RECENT</a></li>
+
+          <li><a class="" href="#ARCHIVE">ARCHIVE</a></li>
+          <li><a class="" href="#HOT">HOT</a></li>
+          <li><a class="" href="#TAGS">TAGS</a></li>
+        </ul>
+        
+        
+<!-- START widget_box div -->
+<div class="widget_box">
+    <div style="display: block;" id="RECENT">
+        <li>
+        {% show_latest_posts 3 %}   
+
+        </li>
+    </div>
+
+    <div style="display: none;" id="ARCHIVE">
+
+        <ul>    
+            <li><a href='#' title='February 2009'>February 2009</a></li>
+        </ul>
+
+    </div>
+
+<!--list of categories, order by name, without children categories, no number of articles per category-->
+<div style="display: none;" id="HOT">
+        
+    {% get_most_commented_posts as most_commented_posts %}
+    <ul>
+    {% for post in most_commented_posts %}
+      <li>
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div style="display: none; padding: 15px;" id="TAGS">
+Tags
+</div>
+</div>
+<!-- CLOSE widget_box div -->
+
+</div>
+<!-- close usual div -->
+<div class="sidebar_bottom">
+</div>
+<!-- end tab menu -->
+
+
+
+
+
+<div class="sidebar_header"></div>
+
+<div class="sidebar_body">
+
+<ul>
+<li class="sidebar_nav">            
+<h3>Recent Posts</h3>
+            
+<ul>
+<li><a href="#">Awsome stuff </a></li>
+<li><a href="#">Poster man </a></li>
+<li><a href="#">Sensation </a></li>
+<li><a href="#">Fantastic </a></li>
+<li><a href="#">Big news </a></li>
+</ul>
+
+</li>
+
+<li class="sidebar_nav">
+<h3>Categories</h3> 
+    
+<ul>
+<li><a href="#" title="View all posts filed under Art">Art</a></li>
+<li><a href="#" title="View all posts filed under Featured">Featured</a></li>
+<li><a href="#" title="View all posts filed under Lifestyle">Lifestyle</a></li>
+<li><a href="http://localhost/wordpress/?cat=17" title="View all posts filed under Music">Music</a></li>
+<li><a href="#" title="View all posts filed under News">News</a></li>
+</ul>
+</li>
+
+<li class="sidebar_nav">
+
+<h3>Useful links</h3>
+
+<ul>
+<li><a href="http://csstemplateheaven.com/">CssTemplateHeaven</a></li>
+<li><a href="http://beautifulwordpressthemes">Beautiful Wordpress Themes</a></li>
+<li><a href="http://dieter.no">The creator</a></li>
+<li><a href="#">Suggest Ideas</a></li>
+<li><a href="#">Support Forum</a></li>
+</ul>
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="sidebar_bottom"></div>
+
+
+</div>
+<!--*************************************** close main_content_right div ***************************************
+****************************************************************************************************************-->
+
+
+
+</div>
+
+<!--*************************************** CLOSE CONTAINER div ***************************************
+*******************************************************************************************************-->
+
+
+
+</div>
+<!--*************************************** CLOSE PAGE_WRAPPER div ***************************************
+*******************************************************************************************************-->
+
+
+
+
+
+<!-- START footer -->
+<div id="footer">
+<div id="footer_contents">
+
+<div id="footer_left">
+<h3>About us</h3>
+
+<p>Write some info about you and your site here. This text can be edited in footer.php</p>
+<p>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+</div>
+
+<div id="footer_right">
+<h3>Top 30 Tags of this site</h3>
+Tag cloud goes here
+</div>
+
+</div>
+</div>
+<!-- close footer -->
+
+
+</body>
+</html>

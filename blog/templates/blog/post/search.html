@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load highlight %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    {% if 'query' in request.GET %}
+
+        <h1>Posts containing "{{ cd.query }}" </h1>
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+        {% for result in results %}
+            {% with post=result.object %}
+                <h4><a href="{{ post.get_absolute_url }}">{% highlight post.title with cd.query %}</a></h4>           
+                {% highlight post.body with cd.query %}
+            {% endwith %}
+        {% empty %}
+            <p>There are no results for your query.</p>
+        {% endfor %}    
+        <p><a href="{% url "blog:post_search" %}">Search again</a></p>
+    {% else %}
+        <h1>Search for posts</h1>
+        <form action="." method="get">
+            {{ form.as_p }}
+            <input type="submit" value="Search">
+        </form>
+    {% endif %}
+{% endblock %}
