@@ -47,7 +47,7 @@ jQuery("#dropmenu li").hover(function(){
 <div id="header">
 
 
-
+<h1 align="center">Write, Think</h1>
 
 
 </div>
@@ -80,7 +80,7 @@ jQuery("#dropmenu li").hover(function(){
 <!-- START top_nav_menu div -->
 <div id="top_nav_menu">
 <ul id="dropmenu">
-<li><a href="#" class="title" title="home again woohoo">首页</a></li>
+<li><a href="{% url 'site_index' %}" class="title" title="Write and Think">首页</a></li>
 <li><a href="{% url 'blog:post_list' %}" title="Blog">Blog</a></li>
 <li><a href="#" title="dropdown">Category</a>
 
@@ -168,18 +168,9 @@ Tags
 <div class="sidebar_body">
 
 <ul>
-<li class="sidebar_nav">            
-<h3>Recent Posts</h3>
-            
-<ul>
-<li><a href="#">Awsome stuff </a></li>
-<li><a href="#">Poster man </a></li>
-<li><a href="#">Sensation </a></li>
-<li><a href="#">Fantastic </a></li>
-<li><a href="#">Big news </a></li>
-</ul>
+{% block related %}
+{% endblock %}  
 
-</li>
 
 <li class="sidebar_nav">
 <h3>Categories</h3> 

@@ -136,7 +136,7 @@ Site Structure
 body {
 	font-size:100%;
 	line-height:1.125em;
-	font-family: Georgia, "Times New Roman", Times, serif,"微软雅黑";
+	font-family: "微软雅黑", Georgia, "Times New Roman", Times, serif;
 	background-color: #f0f0f0;
 	background-image: url(../images/body.jpg);
 	background-repeat: repeat-x;
@@ -415,7 +415,7 @@ Top navigation
 	text-decoration:none;
 	color: #666666;
 	font-size: 1.2em;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: "微软雅黑", Georgia, "Times New Roman", Times, serif;
 	letter-spacing: .18em;
 }
 
@@ -534,7 +534,7 @@ Nested Comments
 }
 
 .submit_button {
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: "微软雅黑", Georgia, "Times New Roman", Times, serif;
 	font-weight: bold;
 	background-image: url(../images/submit.jpg);
 	height: 32px;
