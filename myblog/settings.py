@@ -124,6 +124,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# 前面我们app里添加了django.contrib.sites,需要设置SITE_ID
+SITE_ID = 1
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
