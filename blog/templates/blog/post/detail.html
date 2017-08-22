@@ -38,40 +38,13 @@
 
  <div id="comments">
 
-  {% if new_comment %}
-    <h2>评论成功.</h2>
-  {% else %}
-      <h2>添加评论</h2>
-      <form action="{% url 'comments:post_comment' post.publish.year post.publish.month post.publish.day post.slug %}" method="post">
-        {{ comment_form.as_p }}
-        {% csrf_token %}
-        <p align=center><input type="submit" value="点击提交评论"></p>
-      </form>
-  {% endif %}
-
-
-  {% with post.comments.count as total_comments %}
-    <h2 align="center">
-      共{{ total_comments }} 条评论.
-    </h2>
-  {% endwith %}
-
-
-
-  {% for comment in post.comments.all %}
-      <div class="comment">
-        <p class="info">
-          {{ comment.name }}&nbsp; &nbsp; {{ comment.created }} &nbsp;&nbsp;#{{ forloop.revcounter }} 
-        </p>
-        {{ comment.body|linebreaks }}
-      </div>
-  {% empty %}
-      <p>还没有评论.</p>
-  {% endfor %}
-
+{% include 'comments/comment_form.html' %}
+{% include 'comments/comment_list.html' %}
 
   </div>
 </div>
+
+
 
 
 {% endblock %}
@@ -79,7 +52,7 @@
 {% block related %}
 <li class="sidebar_nav">
           
-<h3>Related Posts</h3>
+<h3>相关推荐</h3>
             
 <ul>
 {% for post in similar_posts %}

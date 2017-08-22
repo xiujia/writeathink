@@ -1,0 +1,56 @@
+
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+
+{% load staticfiles %}
+{% load account %}
+
+
+<head>
+
+<title>Writeathink</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charseutft=-8" />
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<!-- 微博验证 -->
+<meta property="wb:webmaster" content="fcf81cdbd4a4acc6" />
+<!-- Baidu Verification-->
+<meta name="baidu-site-verification" content="KYsqOq4afw" />
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<!--//theme-style-->
+
+<link href="{% static 'blog/css/form.css' %}" rel="stylesheet" type="text/css" />
+<!--highlight-->
+<link rel="stylesheet" href="{% static 'blog/css/prism.css' %}">
+
+
+{% block content %}
+    <div class="local-login">
+    {% block local-account %}
+    {% endblock local-account %}
+    </div>
+{% endblock content %}
+
+{% block sidebar %}
+    <div class="social-login">
+        <div class="social-header"><h4>第三方账号登录</h4></div>
+        {% get_providers as socialaccount_providers %}
+        {% for provider in socialaccount_providers %}
+        <div class="social-provider">
+            <a title="{{provider.name}}" class="{{provider.id}}"
+               href="{% provider_login_url provider.id scope=scope auth_params=auth_params %}">
+                <i></i>
+                {{provider.name}}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock sidebar %}

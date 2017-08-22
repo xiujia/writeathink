@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
+from django.conf.urls.static import static
 from haystack.views import SearchView
 from blog.sitemaps import PostSitemap
 from blog.views import site_index
@@ -27,14 +29,16 @@ sitemaps = {
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^$', site_index, name='site_index'),
     url(r'^blog/', include('blog.urls',
                            namespace='blog', app_name='blog')),
-    url(r'blog/', include('comments.urls',
-                          namespace='comments', app_name='comments')),
+    url(r'^blog/', include('comments.urls',
+                           namespace='comments', app_name='comments')),
+    url(r'^blog/', include('ckeditor_uploader.urls')),  # ckeditor
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     # url(r'^search/', include('haystack.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 显示上传的图片

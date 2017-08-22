@@ -1,0 +1,123 @@
+{% load staticfiles %}
+{% load comment_tags %}
+
+{% generate_form_for post as form %}
+<div id="cmt-form">
+{% if request.user.is_authenticated %}
+    <div class="comment-header">
+        <a class="comment-avatar">
+            <img class="img-rounded" src="{{ request.user.avatar.url }}">
+        </a>
+        <span><strong>
+            {% if request.user.nickname %}
+            {{ request.user.nickname }}
+            {% else %}
+            {{ request.user.username }}
+            {% endif %}
+        </strong></span>
+        <span class="glyphicon glyphicon-edit"></span>
+        <span id="reply-to" style="display:none;">回复：<a class="reply-to-name" href="javascript:void(0);">@Aaron</a></span>
+    </div>
+    <form class="comment-form" method="post" action="{% url 'comments:submit_comment' post.publish.year post.publish.month post.publish.day post.slug %}">
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field }}
+        {{ field.errors }}
+        {% endfor %}
+        <button class="btn btn-primary pull-right" type="submit">提交评论</button>
+    </form>
+    <button class="btn btn-danger pull-right" id="cancel-reply" style="display: none">取消回复</button>
+{% else %}
+    <div class="jumbotron">
+        <h3 class="text-center" align="center"><a href="{% url 'account_login' %}?next={{ request.path }}">登录</a>后参与评论</h3>
+    </div>
+{% endif %}
+</div>
+
+<!-- 在非admin后台的地方使用django-ckeditor，需要引入这两个js -->
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script>
+    $(window).load(function () {
+        if (!$(".comment-reply").hasClass('no-login')){
+            $(".comment-form")[0].reset();
+        }
+        if (sessionStorage.getItem('reply')){
+            sessionStorage.removeItem('reply');
+        }
+        // if true,说明是提交评论后刷新的页面，将位置跳到新评论处
+        if (sessionStorage.getItem('anchor')){
+            var top = $(sessionStorage.getItem('new_comment')).offset().top;
+            $('body,html').animate({scrollTop:top}, 50);
+            window.location.hash = sessionStorage.getItem('new_comment');
+            sessionStorage.removeItem('anchor');
+        }
+    });
+    $(document).ready(function () {
+        // 点击取消回复按钮，按钮消失，同时抹除sessionStorage里记录的reply
+        $("#cancel-reply").click(function () {
+            sessionStorage.removeItem('reply');
+            document.getElementById('cancel-reply').style.display = 'none';
+            document.getElementById('reply-to').style.display = 'none';
+        });
+        // 点击评论里的回复，页面定位到评论框，同时取消回复按钮出现
+        $(".comment-reply").click(function () {
+            if ($(this).hasClass('no-login')){
+                alert('登陆后才能回复');
+                return false;
+            }
+            var pid = $(this).attr('ID').replace('a-', '');
+            sessionStorage.setItem('reply', true);
+            sessionStorage.setItem('pid', pid);
+            document.getElementById('cancel-reply').style.display = '';
+            $(".reply-to-name").text($(this).data('name'));
+            document.getElementById('reply-to').style.display = '';
+        });
+        // 提交评论，发送ajax post
+        $(".comment-form").submit(function (e) {
+            e.preventDefault();
+            // 如果是机器发的垃圾信息，表单的所有字段都会填写
+            if ($("#id_honeypot").val().length > 0){
+                alert("spam!");
+                return false;
+            }
+            content = CKEDITOR.instances.id_content.getData();
+            var list = content.replace(/<.*?>/ig,"").replace(/&nbsp;/ig, "").replace(/\s/g, "");
+            if (list.length == 0){
+                alert("评论不能为空！！");
+                window.location.reload();
+                return false;
+            }
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+            });
+            pid = $('#id_parent option:selected').val();
+            if (sessionStorage.getItem('reply')){
+                pid = sessionStorage.getItem('pid');
+                sessionStorage.removeItem('reply');
+            }
+            $.ajax({
+                type:'post',
+                url:"{% url 'comments:submit_comment' post.publish.year post.publish.month post.publish.day post.slug %}",
+                data:{
+                    'honeypot':$("#id_honeypot").val(),
+                    'content':content,
+                    'parent':pid,
+                    'post':$('#id_post option:selected').val()
+                },
+                dataType:'json',
+                // 提交成功后，根据返回数据，把新评论的id保存在sessionStorage中，然后刷新页面
+                success:function (json) {
+                    sessionStorage.setItem('anchor', true);
+                    sessionStorage.setItem('new_comment', json.new_comment);
+                    window.location.reload();
+                },
+                error:function (json) {
+                    alert(json.msg);
+                }
+            });
+
+        
+        });
+    });
+</script>

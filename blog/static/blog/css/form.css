@@ -1,0 +1,170 @@
+.asteriskField{
+    color: orangered;
+}
+.checkbox label{
+    display: block;
+}
+.local-header h4{
+    background: #00aedb;
+    color: white;
+    padding: 0.7em 0.7em;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+}
+.local-header{
+    margin-bottom: 15px;
+}
+.local-login{
+    background: #ebebeb;
+    min-height: 160.433px;
+}
+.login{
+    padding: 0 15px 20px;
+}
+.social-login{
+    background: #ebebeb;
+}
+.social-header h4{
+    background: #00aedb;
+    color: white;
+    padding: 0.7em 0.7em;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+}
+.social-header{
+    margin-bottom: 15px;
+}
+.social-provider{
+    padding: 0 15px 15px;
+}
+.social-provider a{
+    width: 100%;
+    display: block;
+    text-align: center;
+    border: solid 1px;
+    border-color: #66afe9;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+.social-provider a:hover{
+    color: white;
+    background-color: #00aedb;
+}
+.social-provider a i{
+    width: 16px;
+    height: 19px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.github i{
+    background: url(../images/github.png) no-repeat;
+}
+.weibo i{
+    background: url(../images/weibo.png) no-repeat;
+}
+.secondaryAction{
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.new_user{
+    float: right;
+    color: #00aedb;
+}
+.primaryAction{
+    background: #00aedb;
+    border-color: #00aedb;
+    border-radius: 4px;
+    color: white;
+    display: block;
+    margin-bottom: 15px;
+    padding: 3px 15px;
+}
+.auth-message{
+    background-color: #00aedb;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 0.75em 1.25em;
+    opacity: .5;
+}
+.auth-message strong{
+    font-size: 1.25em;
+    color: black;
+}
+.close{
+    opacity: 1;
+}
+/*
+.close i{
+    background: url(../images/close.png) no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}*/
+.sign-button{
+    display: inline-block;
+}
+.already-button{
+    float: right;
+    padding: 4px 15px;
+    background-color: #0275d8;
+}
+.confirm{
+    padding: 0 15px 20px;
+}
+#div_id_avatar label span{
+    display: none;
+}
+#div_id_avatar{
+    display: inline-block;
+}
+.avatar{
+    display: inline-block;
+    float: right;
+}
+.dropdown a img{
+    max-width: 39px;
+    height: auto;
+    float: left;
+    margin-right: 5px;
+}
+.dropdown a{
+    display: inline-block;
+}
+.dropdown a:hover{
+    color: #0f74a8;
+    background-color: #ebebeb;
+}
+.dropdown i{
+    background: url(../images/play3.png) no-repeat;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    float: right;
+    margin-left: 8px;
+    margin-top: 15px;
+}
+.username{
+    font-size: 1.4em;
+    float: left;
+}
+.post_rank{
+    margin-top: 12px;
+    padding-left: 5px;
+    border: solid 1px;
+    border-radius: 4px;
+    border-color: #00aedb;
+}
+.post_rank h5{
+    font-size: 1.2em;
+    line-height: 1.8em;
+}
+.post_rank h5 a{
+    text-decoration: none;
+    color: #0E2231;
+    display: block;
+}
+.post_rank h5 a:hover{
+    text-decoration: none;
+    color: #ec098d;
+}

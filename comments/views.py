@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from blog.models import Post
-from .models import Comment
-from .forms import CommentForm
+from .models import Comment, HierComment
+from .forms import CommentForm, HierCommentForm
 
 
 def post_comment(request, year, month, day, post):
@@ -35,3 +37,20 @@ def post_comment(request, year, month, day, post):
                    'comments': comments,
                    'new_comment': new_comment,
                    'comment_form': comment_form})
+
+
+# hiercomment view
+@require_POST
+def submit_comment(request, year, month, day, post):
+    new_comment = None
+    form = HierCommentForm(data=request.POST)
+    # print(request.POST)
+    if form.is_valid():
+        # print('success')
+        new_comment = form.save(commit=False)
+        new_comment.user = request.user
+        new_comment.user_name = request.user.username
+        new_comment.save()
+        location = "#c" + str(new_comment.id)
+        return JsonResponse({'msg': 'success!', 'new_comment': location})
+    return JsonResponse({'msg': '评论出错!'})

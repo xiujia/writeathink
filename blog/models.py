@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class PublishedManager(models.Manager):
@@ -22,7 +23,9 @@ class Post(models.Model):
                             unique_for_date='publish')
     author = models.ForeignKey(User,
                                related_name='blog_posts')
-    body = models.TextField()
+    # body = models.TextField()
+    # 正文使用ckeditor
+    body = RichTextUploadingField(verbose_name='正文')
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -15,8 +15,17 @@
 
     <link rel="pingback" href="#" />
     
-    
- 
+<!--bootstrap css
+ <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+-->
+<!-- 评论框、评论列表和通知列表的样式 -->
+<link rel="stylesheet" href="{% static 'comments/css/comment.css' %}">
+
+<!-- 代码块的高亮 -->
+<link rel="stylesheet" href="{% static 'comments/css/prism.css' %}">
+<script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
+
     
 <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'blog/js/tabs.js' %}"></script>
@@ -45,9 +54,10 @@ jQuery("#dropmenu li").hover(function(){
 <!--*********************************** START header div ***********************************-->
 
 <div id="header">
-
-
-<h1 align="center">Write, Think</h1>
+<br>
+<h2 align="center"><a href="{% url 'site_index' %}" class="title" title="Write and Think">写作 | 思考</a></h2>
+<h3 align="left">学而不思则罔</h3>
+<h3 align="left"> 思而不学则怠</h3>
 
 
 </div>
@@ -81,8 +91,8 @@ jQuery("#dropmenu li").hover(function(){
 <div id="top_nav_menu">
 <ul id="dropmenu">
 <li><a href="{% url 'site_index' %}" class="title" title="Write and Think">首页</a></li>
-<li><a href="{% url 'blog:post_list' %}" title="Blog">Blog</a></li>
-<li><a href="#" title="dropdown">Category</a>
+<li><a href="{% url 'blog:post_list' %}" title="Blog">文章</a></li>
+<li><a href="#" title="dropdown">分类</a>
 
 <ul>
 <li><a href="#" title="child of dropdown">Python</a>
@@ -109,11 +119,11 @@ jQuery("#dropmenu li").hover(function(){
 
        
         <ul class="idTabs">
-          <li><a class="selected" href="#RECENT">RECENT</a></li>
-
-          <li><a class="" href="#ARCHIVE">ARCHIVE</a></li>
-          <li><a class="" href="#HOT">HOT</a></li>
-          <li><a class="" href="#TAGS">TAGS</a></li>
+            <li><a class="selected" href="#RECENT">最新</a></li>
+            <li><a class="" href="#HOT">最热</a></li>
+            <li><a class="" href="#ARCHIVE">归档</a></li>
+          
+            <li><a class="" href="#TAGS">标签</a></li>
         </ul>
         
         
@@ -173,7 +183,7 @@ Tags
 
 
 <li class="sidebar_nav">
-<h3>Categories</h3> 
+<h3>文章类目</h3> 
     
 <ul>
 <li><a href="#" title="View all posts filed under Art">Art</a></li>
@@ -186,7 +196,7 @@ Tags
 
 <li class="sidebar_nav">
 
-<h3>Useful links</h3>
+<h3>链接</h3>
 
 <ul>
 <li><a href="http://csstemplateheaven.com/">CssTemplateHeaven</a></li>
@@ -231,18 +241,22 @@ Tags
 <div id="footer_contents">
 
 <div id="footer_left">
-<h3>About us</h3>
+<h3 align="center">About us</h3>
 
 <p>Write some info about you and your site here. This text can be edited in footer.php</p>
-<p>More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+
 </div>
 
 <div id="footer_right">
-<h3>Top 30 Tags of this site</h3>
-Tag cloud goes here
+<h3 align="center">Website Info</h3>
+<p align="center">Sites Powered by <a href="https://www.djangoproject.com/" target="_blank" title="Django">Django</a></p>
+<p align="center">Copyright@ 2017 Writeathink</p>
+<p align="center">津ICP备 17006739号</p>
 </div>
 
+
 </div>
+
 </div>
 <!-- close footer -->
 

@@ -18,7 +18,7 @@ a:link, a:visited {
 }
 
 h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, .sidebar_nav a {
-	color:red;
+	color: #4169E1;
 	text-decoration: none;
 }
 
@@ -163,7 +163,7 @@ body {
 	width: 667px;
 	margin: auto;
 	height: 109px;
-	background-image: url(../images/header.jpg);
+	/*background-image: url(../images/header.jpg);*/
 }
 
 #container {	
