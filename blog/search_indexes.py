@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-'''haystack serch indexes'''
 
+"""haystack serch indexes"""
 
 from haystack import indexes
 from .models import Post
