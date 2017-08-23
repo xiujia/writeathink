@@ -8,8 +8,13 @@
 
 {% block content %}
 <div class="post hentry category-news tag-tag tag-yes" id="post-{{ post.pk }}">
-   <div class="post_header_single">
+   <div class="title">
     <h1 align="center">{{ post.title }}</h1>
+   </div>
+   <div class="post_header_single">
+       <span  class="date">
+        发布于{{ post.publish }}  &nbsp;&nbsp;&nbsp;&nbsp;作者: {{ post.author }}
+      </span>
     <br>
     <span class="tags">
   	 标签:
@@ -19,11 +24,7 @@
   	 {% empty %}
   	 {% endfor %}
     </span>
-    <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="date" style="margin-right: 10px">
-      发布于{{ post.publish }}  &nbsp;&nbsp;&nbsp;&nbsp;作者: {{ post.author }}
-    </span>
+
   </div>
 
   <div class = "post_body_single">

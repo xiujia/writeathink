@@ -165,6 +165,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 180
 ACCOUNT_LOGOUT_ON_GET = True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'  # 使用crispy表单时指定的css
 
 # email settings
 # SMTP服务器
