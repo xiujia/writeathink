@@ -16,7 +16,7 @@
             {% endif %}
         </strong></span>
         <span class="glyphicon glyphicon-edit"></span>
-        <span id="reply-to" style="display:none;">回复：<a class="reply-to-name" href="javascript:void(0);">@Aaron</a></span>
+        <span id="reply-to" style="display:none;">回复：<a class="reply-to-name" href="javascript:void(0);">@他或她</a></span>
     </div>
     <form class="comment-form" method="post" action="{% url 'comments:submit_comment' post.publish.year post.publish.month post.publish.day post.slug %}">
         {% csrf_token %}

@@ -60,6 +60,7 @@ node_modules/
 
 #secrets 
 secrets.json
+.ini
 
 # User-uploaded media
 myblog/media/

@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import configparser
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# config settings
+CONFIG = configparser.ConfigParser()
+CONFIG.read(os.path.join(BASE_DIR, 'config.ini'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$q$d_yi^j0u-&h-$83ovra+&#gr9ay5=6kk^z&y##t_3oj-k(4'
+SECRET_KEY = CONFIG.get('secret_key', 'secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,14 +168,14 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 # email settings
 # SMTP服务器
-EMAIL_HOST = 'smtp.mxhichina.com'
-EMAIL_HOST_USER = 'service@writeathink.cn'
-EMAIL_HOST_PASSWORD = 'Servicecg12345'
-EMAIL_PORT = 465
+EMAIL_HOST = CONFIG.get('email', 'host')
+EMAIL_HOST_USER = CONFIG.get('email', 'host_user')
+EMAIL_HOST_PASSWORD = CONFIG.get('email', 'host_passwd')
+EMAIL_PORT = CONFIG.get('email', 'port')
 # 是否使用了SSL 或者TLS
 EMAIL_USE_SSL = True
 # 默认发件人，不设置的话django默认使用的webmaster@localhost
-DEFAULT_FROM_EMAIL = 'Service <service@writeathink.cn>'
+DEFAULT_FROM_EMAIL = CONFIG.get('email', 'default_from_email')
 
 
 # Internationalization
@@ -214,22 +219,53 @@ CKEDITOR_CONFIGS = {
         # 使用简体中文
         'language': 'zh-cn',
         # 编辑器的宽高请根据你的页面自行设置
-        'width': '540px',
-        'height': '150px',
+        'width': '750px',
+        'height': '500px',
+
+
+
+        # 添加按钮在这里
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'basicstyles',
+                'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',
+                       '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']},
+            {'name': 'links', 'items': [
+                'Link', 'Unlink', 'Anchor', '-', 'RemoveFormat']},
+            {'name': 'insert',
+             'items': ['Image', '-', 'Flash', 'Iframe', '-', 'Table', 'CodeSnippet', 'Templates']},
+            '/',
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'styles', 'items': ['Format', 'Font', 'FontSize']},
+            {'name': 'special', 'items': ['Subscript', 'Superscript', '-', 'HorizontalRule',
+                                          'SpecialChar', 'Smiley']},
+            {'name': 'tools', 'items': [
+                'Undo', 'Redo', '-', 'Source', 'Preview', 'Save', '-', 'Maximize']}
+        ],
+        'toolbar': 'YourCustomToolbarConfig',
         'image_previewText': ' ',
         'tabSpaces': 4,
-        'toolbar': 'Custom',
-        # 添加按钮在这里
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline', 'Format', 'RemoveFormat'],
-            ['NumberedList', 'BulletedList'],
-            ['Blockquote', 'CodeSnippet'],
-            ['Image', 'Link', 'Unlink'],
-            ['Maximize']
-        ],
-        # 插件
-        'extraPlugins': ','.join(['codesnippet',
-                                  'uploadimage', 'prism', 'widget', 'lineutils', ]),
+        'extraPlugins': ','.join(
+            [
+                'div',
+                'autolink',
+                'autoembed',
+                'embedsemantic',
+                'autogrow',
+                'widget',
+                'lineutils',
+                'clipboard',
+                'dialog',
+                'dialogui',
+                'elementspath',
+                'codesnippet',
+                'uploadimage',
+                'prism',
+            ]),
     },
 
     'comment': {
