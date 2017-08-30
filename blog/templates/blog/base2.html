@@ -24,6 +24,13 @@
 
 <!-- 代码块的高亮 -->
 <link rel="stylesheet" href="{% static 'comments/css/prism.css' %}">
+
+<style>
+    span.highlighted {
+        color: red;
+     }
+</style>
+
 <script src="{% static 'ckeditor/ckeditor/plugins/prism/lib/prism/prism_patched.min.js' %}"></script>
 
     
@@ -108,6 +115,14 @@ jQuery("#dropmenu li").hover(function(){
 
 <li><a href="#" title="Testing elements">Testing elements</a></li>
 </ul>
+
+<li>
+    <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+        <input type="search" name="q" placeholder="搜索" required>
+        <button type="submit"><span class="ion-ios-search-strong"></span></button>
+    </form>
+</li>
+
 </div>
 <!-- CLOSE top_nav_menu div -->
 
@@ -137,9 +152,15 @@ jQuery("#dropmenu li").hover(function(){
     </div>
 
     <div style="display: none;" id="ARCHIVE">
-
-        <ul>    
-            <li><a href='#' title='February 2009'>February 2009</a></li>
+        {% get_archives as date_list %}
+        <ul>
+        {% for date in date_list %}
+            <li>
+                <a href="{% url 'blog:post_archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月<span>({{ date.num }})</span></a>
+            </li>
+        {% empty %}
+            暂无归档！
+        {% endfor %}
         </ul>
 
     </div>
@@ -183,15 +204,33 @@ Tags
 
 
 <li class="sidebar_nav">
-<h3>文章类目</h3> 
-    
-<ul>
-<li><a href="#" title="View all posts filed under Art">Art</a></li>
-<li><a href="#" title="View all posts filed under Featured">Featured</a></li>
-<li><a href="#" title="View all posts filed under Lifestyle">Lifestyle</a></li>
-<li><a href="http://localhost/wordpress/?cat=17" title="View all posts filed under Music">Music</a></li>
-<li><a href="#" title="View all posts filed under News">News</a></li>
-</ul>
+    <h3>文章类目</h3> 
+    {% get_categories as category_list %}
+    <ul>
+        {% for category in category_list %}
+            <li>
+                <a href="{% url 'blog:post_category' category.name %}">{{ category.name }} <span class="post-count">({{ category.num_posts }})</span></a>
+            </li>
+        {% empty %}
+            暂无分类
+        {% endfor %}
+
+    </ul>
+</li>
+
+<li class="sidebar_nav">
+    <h3>标签云</h3> 
+    {% get_tags as tag_list %}
+    <ul>
+        {% for tag in tag_list %}
+            <ul>
+                <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+            </ul>
+        {% empty %}
+            暂无标签
+        {% endfor %}
+
+    </ul>
 </li>
 
 <li class="sidebar_nav">

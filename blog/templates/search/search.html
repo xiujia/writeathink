@@ -1,23 +1,53 @@
-{% extends "blog/base.html" %}
+{% extends "blog/base2.html" %}
+
 {% block title %}Search{% endblock %}
+
+{% load highlight %}
+
 {% block content %}
-    {% if "query" in request.GET %}
-        <h1>Posts containing "{{ cd.query }}"</h1>
-        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
-        {% for result in results %}
-            {% with post=result.object %}
-                <h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>           
-                {{ post.body|truncatewords:5 }}
-            {% endwith %}
-            {% empty %}
-                <p>There are no results for your query.</p>
-        {% endfor %}    
-        <p><a href="{% url "blog:post_search" %}">Search again</a></p>
+    {% if query %}
+        {%for result in page.object_list %}
+            <article class="post post-{{ result.object.pk }}">
+                <header class="entry-header">
+                    <h1 class="post-title">
+                        <a href="{{ result.object.get_absolute_url }}">{% highlight result.object.title with query %}</a>
+                    </h1>
+                    <div class="entry-meta">
+                    <span class="post-category">
+
+                        <span class="post-date"><a href="#">
+                            <time class="entry-date" datetime="{{ result.object.created_time }}">
+                                {{ result.object.publish }}</time></a></span>
+                        <span class="post-author"><a href="#">{{ result.object.author }}</a></span>
+                        <span class="comments-link">
+                        <a href="{{ result.object.get_absolute_url }}#comment-area">
+                            {{ result.object.hiercomments.count }} 评论</a></span>
+                        
+                    </div>
+                </header>
+                <div class="entry-content clearfix">
+                    <p>{% highlight result.object.body with query %}</p>
+                    <div class="read-more cl-effect-14" >
+                        <a href="{{ result.object.get_absolute_url }}" class="more-link">继续阅读 <span
+                                class="meta-nav">→</span></a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="no-post">没有搜索到你想要的结果！</div>
+        {% endfor %}
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}
+                    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous
+                {% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next
+                &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
     {% else %}
-        <h1>Search for posts</h1>
-        <form action="." method="get">
-            {{ form.as_p }}
-            <input type="submit" value="Search">
-        </form>
+        请输入搜索关键词，例如 django
     {% endif %}
-{% endblock %}
+
+{% endblock content %}

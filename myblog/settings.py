@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # 下面是第三方账号相关的，比如我选了weibo和github
-    'allauth.socialaccount.providers.weibo',
+    # 'allauth.socialaccount.providers.weibo',
     'allauth.socialaccount.providers.github',
 
     # local apps
@@ -81,15 +81,22 @@ AUTH_USER_MODEL = 'auth.user'
 # haystack 配置
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/blog',
-        'TIMEOUT': 60 * 5,
-        'INCLUDE_SPELLING': True,
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },
+    # 'solr': {
+    #    'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+    #   'URL': 'http://127.0.0.1:8983/solr/blog',
+    #   'TIMEOUT': 60 * 5,
+    #    'INCLUDE_SPELLING': True,
+    # },
+
 
 }
 
 HAYSTACK_DJANGO_CT_FIELD = 'my_django_ct'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,6 +134,14 @@ WSGI_APPLICATION = 'myblog.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': CONFIG.get('postgresql', 'db_name'),
+        'USER': CONFIG.get('postgresql', 'user'),
+        'PASSWORD': CONFIG.get('postgresql', 'pass'),
+        'HOST': CONFIG.get('postgresql', 'host'),
+        'PORT': CONFIG.get('postgresql', 'port'),
+    },
+    'sqlite3': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

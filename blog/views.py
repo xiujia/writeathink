@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.db.models import Count
 from taggit.models import Tag
 from haystack.query import SearchQuerySet
-from .models import Post
+from .models import Post, Category
 from .forms import EmailPostForm, SearchForm
 
 
@@ -49,12 +49,32 @@ class PostListView(ListView):
     paginate_by = 3
 
 
+def post_category(request, cate_name):
+    """分类视图"""
+    cate = get_object_or_404(Category, name=cate_name)
+    postcate_list = Post.published.filter(category=cate)
+    return render(request,
+                  'blog/post/list.html',
+                  context={'posts': postcate_list})
+
+
+def post_archives(request, year, month):
+    """归档视图"""
+    dates = Post.published.filter(publish__year=year,
+                                  publish__month=month,
+                                  ).order_by('-publish')
+    return render(request,
+                  'blog/post/list.html',
+                  context={'posts': dates})
+
+
 def post_detail(request, year, month, day, post):
     '''post详情页'''
     post = get_object_or_404(
         Post, slug=post, status='published',
         publish__year=year, publish__month=month,
         publish__day=day)
+    post.increase_views()  # 阅读量+1
     # List of similar posts
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(

@@ -68,6 +68,93 @@ strong {font-weight: bold;}
     margin: 10px 0px;
 }
 
+.post-title {
+    text-align: center;
+}
+
+/**
+ * 4.1 - Read More Button CSS 3 style
+ */
+
+.read-more {
+    font-family: '微软雅黑', sans-serif;
+    font-weight: 400;
+    word-spacing: 1px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cl-effect-14 a {
+    padding: 0 20px;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    display: inline-block;
+    margin: 15px 25px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.cl-effect-14 a::before,
+.cl-effect-14 a::after {
+    position: absolute;
+    width: 45px;
+    height: 1px;
+    background: #C3C3C3;
+    content: '';
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.cl-effect-14 a::before {
+    top: 0;
+    left: 0;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.cl-effect-14 a::after {
+    right: 0;
+    bottom: 0;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform-origin: 100% 0;
+    -moz-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+}
+
+.cl-effect-14 a:hover::before,
+.cl-effect-14 a:hover::after,
+.cl-effect-14 a:focus::before,
+.cl-effect-14 a:focus::after {
+    background: #000;
+}
+
+.cl-effect-14 a:hover::before,
+.cl-effect-14 a:focus::before {
+    left: 50%;
+    -webkit-transform: rotate(0deg) translateX(-50%);
+    -moz-transform: rotate(0deg) translateX(-50%);
+    transform: rotate(0deg) translateX(-50%);
+}
+
+.cl-effect-14 a:hover::after,
+.cl-effect-14 a:focus::after {
+    right: 50%;
+    -webkit-transform: rotate(0deg) translateX(50%);
+    -moz-transform: rotate(0deg) translateX(50%);
+    transform: rotate(0deg) translateX(50%);
+}
+
 .more {
 	margin-top: 10px;
 	margin-right: -10px;
@@ -165,6 +252,69 @@ body {
 	height: 109px;
 	/*background-image: url(../images/header.jpg);*/
 }
+
+/**
+ * 7.0 - Header Search Bar
+ */
+
+#header-search-box {
+    position: absolute;
+    right: 38px;
+    top: 8px;
+}
+
+.search-form {
+    display: none;
+    width: 25%;
+    position: absolute;
+    min-width: 200px;
+    right: -6px;
+    top: 33px;
+}
+
+#search-menu span {
+    font-size: 20px;
+}
+
+#searchform {
+    position: relative;
+    border: none;
+    min-height: 42px;
+    right: -230px;
+}
+
+#searchform input[type=search] {
+    width: 300px;
+    border: 1px solid #ddd;
+    
+    position: absolute;
+    right: 10;
+    padding: 10px 30px 10px 10px;
+    z-index: 99;
+}
+
+#searchform button {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    z-index: 999;
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+#searchform button span {
+    font-size: 22px;
+}
+
+#search-menu span.ion-ios-close-empty {
+    font-size: 40px;
+    line-height: 0;
+    position: relative;
+    top: -6px;
+}
+
+
 
 #container {	
     width: 990px;

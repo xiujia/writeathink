@@ -13,6 +13,15 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(status='published')
 
 
+class Category(models.Model):
+    """分类"""
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+
 class Post(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
@@ -29,6 +38,8 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    views = models.PositiveIntegerField(default=0)
+    category = models.ForeignKey(Category)
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='draft')
@@ -52,3 +63,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def increase_views(self):
+        """阅读量"""
+        self.views += 1
+        self.save(update_fields=['views'])
