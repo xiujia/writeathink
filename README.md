@@ -11,6 +11,7 @@ todo list
 - add user profile
 - fix content and widget size
 - add post catalog |markdown use [toc]
+- adjust color style
 
 
 
