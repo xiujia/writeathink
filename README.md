@@ -2,12 +2,15 @@
 # django blog powered by django 1.10.7 with postgresql 
 
 todo list
-+ search box
-+ db change
+
 - paginator change
-+ add catogory views
-+ add archive views
+- add comment navigation
+- change views and comment rank
+- add to top
 - add notifiaction
-- fix login css
+- add user profile
+- fix content and widget size
 - add post catalog |markdown use [toc]
-+ change solr to wooshindex 
+
+
+

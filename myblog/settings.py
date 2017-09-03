@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # config settings
 CONFIG = configparser.ConfigParser()
-CONFIG.read(os.path.join(BASE_DIR, 'config.ini'))
+CONFIG.read(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'ckeditor',  # 富文本编辑器
     'ckeditor_uploader',
     'mptt',
-    'crispy_forms',
+    'crispy_forms',  # 表单
+    'imagekit',  # 图片
     'allauth',  # allauth第三方登录
     'allauth.account',
     'allauth.socialaccount',
@@ -214,6 +215,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+# redis cache settings
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 
 # ckeditor settings

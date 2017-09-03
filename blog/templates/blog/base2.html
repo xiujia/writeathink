@@ -63,8 +63,35 @@ jQuery("#dropmenu li").hover(function(){
 <div id="header">
 <br>
 <h2 align="center"><a href="{% url 'site_index' %}" class="title" title="Write and Think">写作 | 思考</a></h2>
+<div class="head-left">
 <h3 align="left">学而不思则罔</h3>
 <h3 align="left"> 思而不学则怠</h3>
+</div>
+
+
+ <div class="header-top-on">
+    
+    <ul class="social-in">
+    {% if user.is_authenticated %}
+        <li class="bell">
+            <ul>
+                <li><a href="{% url 'account_logout' %}?next={{ request.path }}">登出</a></li>
+            </ul>
+        </li>
+    {% else %}
+        <li><a href="{% url 'account_login' %}?next={{ request.path }}">
+            <span class="username" style="font-size: 1.2em">登录</span></a>
+        </li>
+        <li>
+            <a href="javascript:void(0);"><span class="username" style="font-size: 1.2em">/</span></a>
+        </li>
+        <li><a href="{% url 'account_signup' %}">
+            <span class="username" style="font-size: 1.2em">注册</span></a>
+        </li>
+    {% endif %}
+    </ul>
+
+</div>
 
 
 </div>
@@ -114,14 +141,16 @@ jQuery("#dropmenu li").hover(function(){
 </li>
 
 <li><a href="#" title="Testing elements">Testing elements</a></li>
-</ul>
+
 
 <li>
-    <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+    <form role="search" method="get" class="search" action="{% url 'haystack_search' %}">
+        {% csrf_token %}
         <input type="search" name="q" placeholder="搜索" required>
-        <button type="submit"><span class="ion-ios-search-strong"></span></button>
+        <input type="submit" value="Search">
     </form>
 </li>
+</ul>
 
 </div>
 <!-- CLOSE top_nav_menu div -->
@@ -218,14 +247,14 @@ Tags
     </ul>
 </li>
 
-<li class="sidebar_nav">
+<li class="sidebar_tags">
     <h3>标签云</h3> 
     {% get_tags as tag_list %}
     <ul>
         {% for tag in tag_list %}
-            <ul>
+            <li>
                 <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
-            </ul>
+            </li>
         {% empty %}
             暂无标签
         {% endfor %}
