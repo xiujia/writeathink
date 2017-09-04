@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+# from user.models import User
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from taggit.managers import TaggableManager
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -15,10 +16,13 @@ class PublishedManager(models.Manager):
 
 class Category(models.Model):
     """分类"""
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name='分类名称')
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = '分类'
 
 
 
@@ -27,22 +31,22 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, verbose_name='文章标题')
     slug = models.SlugField(max_length=250,
-                            unique_for_date='publish')
-    author = models.ForeignKey(User,
-                               related_name='blog_posts')
+                            unique_for_date='publish', verbose_name='文章标识')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name='blog_posts', verbose_name='文章作者')
     # body = models.TextField()
     # 正文使用ckeditor
     body = RichTextUploadingField(verbose_name='正文')
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    views = models.PositiveIntegerField(default=0)
+    publish = models.DateTimeField(default=timezone.now, verbose_name='发布时间')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    updated = models.DateTimeField(auto_now=True, verbose_name='修改时间')
+    views = models.PositiveIntegerField(default=0, verbose_name='阅读量')
     category = models.ForeignKey(Category)
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
-                              default='draft')
+                              default='draft', verbose_name='发布状态')
     objects = models.Manager()  # The default manager
     published = PublishedManager()  # The Dahl-specific manager
     tags = TaggableManager()  # django-taggit 提供的tag管理器
@@ -59,6 +63,7 @@ class Post(models.Model):
                              self.slug])
 
     class Meta:
+        verbose_name = '文章'
         ordering = ('-publish',)
 
     def __str__(self):

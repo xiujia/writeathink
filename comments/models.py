@@ -7,8 +7,10 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class HierComment(MPTTModel):
     '''层级回复评论'''
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
-    user_name = models.CharField(max_length=50, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             blank=True, null=True, verbose_name='用户')
+    user_name = models.CharField(max_length=50,
+                                 blank=True, null=True, verbose_name='用户名称')
     post = models.ForeignKey(settings.COMMENT_ENTRY_MODEL,
                              verbose_name='文章', related_name='hiercomments')
     parent = TreeForeignKey(

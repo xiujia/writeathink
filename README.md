@@ -8,7 +8,6 @@ todo list
 - change views and comment rank
 - add to top
 - add notifiaction
-- add user profile
 - fix content and widget size
 - add post catalog |markdown use [toc]
 - adjust color style

@@ -3,7 +3,7 @@
 
 {% block local-account %}
     <div class="local-header"><h4>个人资料</h4></div>
-    <form class="login" method="post" enctype="multipart/form-data" action="{% url 'blog:account_profile' %}">
+    <form class="login" method="post" enctype="multipart/form-data" action="{% url 'user:account_profile' %}">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="avatar">
@@ -20,7 +20,7 @@
         </div>
         <div class="social-provider">
             <a class="basic_info"
-               href="{% url 'blog:account_profile' %}">
+               href="{% url 'user:account_profile' %}">
                 <i></i>
                 基本信息
             </a>

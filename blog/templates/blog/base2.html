@@ -73,21 +73,36 @@ jQuery("#dropmenu li").hover(function(){
     
     <ul class="social-in">
     {% if user.is_authenticated %}
-        <li class="bell">
+        <li class="notification">
+
+
             <ul>
+                <img class="img-rounded" src="{{ request.user.avatar.url }}">
+                <li>
+                {% if request.user.nickname %}
+                    {{ request.user.nickname }}
+                {% else %}
+                    {{ request.user.username }}
+                {% endif %}
+                </li>             
+                <li><a href="{% url 'user:account_profile' %}">设置</a></li>
                 <li><a href="{% url 'account_logout' %}?next={{ request.path }}">登出</a></li>
             </ul>
         </li>
     {% else %}
-        <li><a href="{% url 'account_login' %}?next={{ request.path }}">
-            <span class="username" style="font-size: 1.2em">登录</span></a>
-        </li>
-        <li>
-            <a href="javascript:void(0);"><span class="username" style="font-size: 1.2em">/</span></a>
-        </li>
-        <li><a href="{% url 'account_signup' %}">
-            <span class="username" style="font-size: 1.2em">注册</span></a>
-        </li>
+        <li class="notification">
+        <ul>
+            <li >
+                <a href="{% url 'account_login' %}?next={{ request.path }}">
+                <span class="username" style="font-size: 1.2em">登录</span></a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"><span class="username" style="font-size: 1.2em">/</span></a>
+            </li>
+            <li><a href="{% url 'account_signup' %}">
+                <span class="username" style="font-size: 1.2em">注册</span></a>
+            </li>
+        </ul>
     {% endif %}
     </ul>
 

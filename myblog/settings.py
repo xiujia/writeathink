@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     # local apps
     'blog',
     'comments',
+    'user',  # 拓展user
 
 ]
 
@@ -75,9 +76,9 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-# user,comemnt,post绑定
+# user,comment,post绑定
 COMMENT_ENTRY_MODEL = 'blog.post'
-AUTH_USER_MODEL = 'auth.user'
+AUTH_USER_MODEL = 'user.User'
 
 # haystack 配置
 HAYSTACK_CONNECTIONS = {

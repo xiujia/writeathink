@@ -30,6 +30,7 @@ sitemaps = {
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('user.urls')),
     url(r'^$', site_index, name='site_index'),
     url(r'^search/', include('haystack.urls')),
     url(r'^blog/', include('blog.urls',
