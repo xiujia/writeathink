@@ -49,6 +49,16 @@ class PostListView(ListView):
     paginate_by = 3
 
 
+class TagListView(PostListView):
+    """
+    tag list
+    """
+
+    def get_queryset(self):
+        tag = get_object_or_404(Tag, slug=self.kwargs.get('tag_slug'))
+        return super(TagListView, self).get_queryset().filter(tags__in=[tag])
+
+
 def post_category(request, cate_name):
     """分类视图"""
     cate = get_object_or_404(Category, name=cate_name)
@@ -56,6 +66,14 @@ def post_category(request, cate_name):
     return render(request,
                   'blog/post/list.html',
                   context={'posts': postcate_list})
+
+
+class CategoryView(PostListView):
+    """category list"""
+
+    def get_queryset(self):
+        cate = get_object_or_404(Category, name=self.kwargs.get('cate_name'))
+        return super(CategoryView, self).get_queryset().filter(category=cate)
 
 
 def post_archives(request, year, month):
@@ -66,6 +84,17 @@ def post_archives(request, year, month):
     return render(request,
                   'blog/post/list.html',
                   context={'posts': dates})
+
+
+class ArchiveView(PostListView):
+    """archive list"""
+
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        month = self.kwargs.get('month')
+        return super(ArchiveView, self).get_queryset().filter(
+            publish__year=year,
+            publish__month=month).order_by('-publish')
 
 
 def post_detail(request, year, month, day, post):
