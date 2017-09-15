@@ -11,6 +11,7 @@ todo list
 - fix content and widget size
 - add post catalog |markdown use [toc]
 - adjust color style
+~~ regroup template tags done ~~
 
 
 

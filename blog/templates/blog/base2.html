@@ -178,9 +178,9 @@ jQuery("#dropmenu li").hover(function(){
 
        
         <ul class="idTabs">
-            <li><a class="selected" href="#RECENT">最新</a></li>
+            <li><a class="selected" href="#ARCHIVE">归档</a></li>
             <li><a class="" href="#HOT">最热</a></li>
-            <li><a class="" href="#ARCHIVE">归档</a></li>
+            <li><a class="" href="#RECENT">最新</a></li>
           
             <li><a class="" href="#TAGS">标签</a></li>
         </ul>
@@ -196,6 +196,26 @@ jQuery("#dropmenu li").hover(function(){
     </div>
 
     <div style="display: none;" id="ARCHIVE">
+        {%  all_posts as allposts %}
+        {% regroup allposts by publish.year as year_post_group %}
+
+        <ul>
+            {% for year in year_post_group %}
+            <li>{{ year.grouper }} 年
+                {% regroup year.list by publish.month as month_post_group %}
+                <ul>
+                    {% for month in month_post_group %}
+                    
+                    <li>
+                        <a href="{% url 'blog:post_archives' year.grouper month.grouper %}">
+                        {{ month.grouper }} 月（{{ month.list | length }}）
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+<!--
         {% get_archives as date_list %}
         <ul>
         {% for date in date_list %}
@@ -206,7 +226,7 @@ jQuery("#dropmenu li").hover(function(){
             暂无归档！
         {% endfor %}
         </ul>
-
+-->
     </div>
 
 <!--list of categories, order by name, without children categories, no number of articles per category-->
@@ -326,7 +346,7 @@ Tags
 <div id="footer_left">
 <h3 align="center">About us</h3>
 
-<p>Write some info about you and your site here. This text can be edited in footer.php</p>
+<p>A django Website share notes about python machine learning  </p>
 
 </div>
 

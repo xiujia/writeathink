@@ -20,6 +20,12 @@ def total_posts():
 
 
 @register.simple_tag
+def all_posts():
+    """所有文章"""
+    return Post.published.all()
+
+
+@register.simple_tag
 def get_categories():
     """分类目录"""
     return Category.objects.annotate(

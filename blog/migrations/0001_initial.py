@@ -12,29 +12,34 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        
+
     ]
 
     operations = [
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=250)),
                 ('slug', models.SlugField(max_length=250, unique_for_date='publish')),
-                ('body', ckeditor_uploader.fields.RichTextUploadingField(verbose_name='正文')),
-                ('publish', models.DateTimeField(default=django.utils.timezone.now)),
+                ('body', ckeditor_uploader.fields.RichTextUploadingField(
+                    verbose_name='正文')),
+                ('publish', models.DateTimeField(
+                    default=django.utils.timezone.now)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('views', models.PositiveIntegerField(default=0)),
-                ('status', models.CharField(choices=[('draft', 'Draft'), ('published', 'Published')], default='draft', max_length=10)),
+                ('status', models.CharField(choices=[
+                 ('draft', 'Draft'), ('published', 'Published')], default='draft', max_length=10)),
             ],
             options={
                 'ordering': ('-publish',),

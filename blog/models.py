@@ -25,7 +25,6 @@ class Category(models.Model):
         verbose_name = '分类'
 
 
-
 class Post(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),

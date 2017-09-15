@@ -12,7 +12,7 @@ from .forms import EmailPostForm, SearchForm
 
 def site_index(request):
     '''site index page '''
-    posts = Post.objects.all()
+    posts = Post.published.all()
     return render(request,
                   'blog/post/index.html', context={'post_list': posts})
 
