@@ -209,6 +209,7 @@ jQuery("#dropmenu li").hover(function(){
                     <li>
                         <a href="{% url 'blog:post_archives' year.grouper month.grouper %}">
                         {{ month.grouper }} 月（{{ month.list | length }}）
+                        </a>
                     </li>
                     {% endfor %}
                 </ul>
