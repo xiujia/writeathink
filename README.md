@@ -4,7 +4,7 @@
 todo list
 
 - paginator change
-- add comment navigation
+- ~~add comment navigation~~
 - change views and comment rank
 - add to top
 - add notifiaction

@@ -17,10 +17,10 @@
 
                         <span class="post-date"><a href="#">
                             <time class="entry-date" datetime="{{ result.object.created_time }}">
-                                {{ result.object.publish }}</time></a></span>
+                                {{ result.object.publish|timesince }}前</time></a></span>
                         <span class="post-author"><a href="#">{{ result.object.author }}</a></span>
                         <span class="comments-link">
-                        <a href="{{ result.object.get_absolute_url }}#comment-area">
+                        <a href="{{ result.object.get_absolute_url }}#comments">
                             {{ result.object.hiercomments.count }} 评论</a></span>
                         
                     </div>

@@ -13,7 +13,7 @@
    </div>
    <div class="post_header_single">
        <span  class="date">
-        发布于{{ post.publish }}  &nbsp;&nbsp;&nbsp;&nbsp;作者: {{ post.author }}
+        发布于{{ post.publish|timesince }}前  &nbsp;&nbsp;&nbsp;&nbsp;作者: {{ post.author }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="#comments">{{ post.hiercomments.count }}</a> 评论
       </span>
     <br>
     <span class="tags">

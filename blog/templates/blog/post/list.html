@@ -31,7 +31,7 @@
     </div>
     <div class="post_footer_single">
       <small>
-          发布于 {{ post.publish }} 作者: {{ post.author }}
+          发布于 {{ post.publish|timesince }}前  &nbsp;&nbsp;  作者: {{ post.author }}&nbsp;&nbsp;<a href="{{ post.get_absolute_url }}#comments">{{ post.hiercomments.count }}</a> 评论
       </small>
       <a href="{{ post.get_absolute_url }}" class="more">Read More... </a>
     </div>
