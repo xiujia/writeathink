@@ -6,13 +6,14 @@ todo list
 - paginator change
 - ~~add comment navigation~~
 - change views and comment rank
-- add to top
+- ~~add to top~~
 - add notifiaction
 - fix content and widget size
 - add post catalog |markdown use [toc]
 - adjust color style
 - ~~regroup template tags done~~
 - fix admin url
+- add post cover and adjust exerpt
 
 
 

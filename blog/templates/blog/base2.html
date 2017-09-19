@@ -37,6 +37,29 @@
 <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'blog/js/tabs.js' %}"></script>
 
+<!-- cdn
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+-->
+<script type="text/javascript">
+        jQuery(document).ready(function() {
+        // 滚动窗口来判断按钮显示或隐藏
+        jQuery(window).scroll(function() {
+            if (jQuery(this).scrollTop() > 150) {
+                jQuery('.back-to-top').fadeIn(100);
+            } else {
+                jQuery('.back-to-top').fadeOut(100);
+            }
+        });
+
+        // jQuery实现动画滚动
+        jQuery('.back-to-top').click(function(event) {
+            event.preventDefault();
+            jQuery('html, body').animate({scrollTop: 0}, 500);
+        })
+    });
+</script>
+
 <script type='text/javascript'>
 jQuery(document).ready(function() {
 jQuery("#dropmenu ul").css({display: "none"}); // Opera Fix
@@ -46,6 +69,7 @@ jQuery("#dropmenu li").hover(function(){
         jQuery(this).find('ul:first').css({visibility: "hidden"});
         });
 });
+
 </script>
 
 
@@ -316,7 +340,9 @@ Tags
 </div>
 
 
-<div class="sidebar_bottom"></div>
+<div class="sidebar_bottom">
+
+</div>
 
 
 </div>
@@ -356,12 +382,15 @@ Tags
 <p align="center">Sites Powered by <a href="https://www.djangoproject.com/" target="_blank" title="Django">Django</a></p>
 <p align="center">Copyright@ 2017 Writeathink</p>
 <p align="center">津ICP备 17006739号</p>
+<a href="#" class="back-to-top"></a>
 </div>
 
 
 </div>
 
 </div>
+
+
 <!-- close footer -->
 
 

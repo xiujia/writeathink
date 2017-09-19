@@ -853,6 +853,26 @@ Nested Comments
 
 /* the comments */
 
+/* to - top */
+.back-to-top {
+    display: none;
+    text-decoration: none;
+    position: fixed;
+    bottom: 25px;
+    right: 10px;
+    overflow: hidden;
+    width: 52px;
+    height: 52px;
+    border: none;
+    text-indent: 100%;
+    background: url('../images/up.png') no-repeat 0px 0px;
+}
+
+.back-to-top:hover {
+    /*background-color: rgba(0, 0, 0, 0.3);*/
+}
+/* to - top */
+
 ol.commentlist { list-style:none; margin:0 0 1em; padding:0; text-indent:0; }
 ol.commentlist li { }
 ol.commentlist li.alt { }
@@ -990,7 +1010,7 @@ text-align:center;
 .usual .widget_box div {
 clear:left;
 padding:0 0 4px 0;
-background:url(../images/widget_bg.gif) repeat-x;
+/*background:url(../images/widget_bg.gif) repeat-x; */
 }
 .usual .widget_box div ul li{
 border-bottom:1px dotted #c7c7c7;

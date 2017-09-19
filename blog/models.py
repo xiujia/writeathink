@@ -23,6 +23,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = '分类'
+        verbose_name_plural = verbose_name
 
 
 class Post(models.Model):
@@ -63,6 +64,7 @@ class Post(models.Model):
 
     class Meta:
         verbose_name = '文章'
+        verbose_name_plural = verbose_name
         ordering = ('-publish',)
 
     def __str__(self):
