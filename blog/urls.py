@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^category/(?P<cate_name>[-\w]+)/$',
         views.CategoryView.as_view(), name='post_category'),
     # archive
-    # url(r'archive/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2}).$',
+    # url(r'archive/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$',
     #   views.post_archives, name='post_archives'),
-    url(r'archive/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2}).$',
+    url(r'archive/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$',
         views.ArchiveView.as_view(), name='post_archives'),
     # post_share
     url(r'^(?P<post_id>\d+)/share/$', views.post_share, name='post_share'),
